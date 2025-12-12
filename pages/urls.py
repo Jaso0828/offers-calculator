@@ -7,7 +7,7 @@ from .views import AboutUs
 
 urlpatterns = [
     path('', HomePage.as_view(), name="index"),
-    path('contact_us/', ContactUs.as_view(), name="contact_us"),
-    path('about_us/', AboutUs.as_view(), name="about_us")
+    path('contact/', ContactUs.as_view(), name="contact_us"),
+    path('about/', AboutUs.as_view(), name="about_us")
     
 ]
