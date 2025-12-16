@@ -1,0 +1,5 @@
+::placeholder {
+    color: #aaa;
+    font-size: 14px;
+    opacity: 1; /* bitno za Firefox */
+}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'pages',
     'products',
+
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR/'static',
 ]
+
+LOGIN_URL = 'account:login'
+LOGIN_REDIRECT_URL = 'products:products'
+LOGOUT_REDIRECT_URL = 'account:login'
+

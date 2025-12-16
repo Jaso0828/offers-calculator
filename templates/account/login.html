@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/buttons.css' %}">
+{% endblock head_css %}
+
+{% block page_content %}
+   
+
+    <input type="text" class="login-input" placeholder="Username">
+    <input type="password" class="login-input" placeholder="Password">
+    <button type="submit" class="button-gradient">Login</button>
+
+{% endblock page_content %}
+
