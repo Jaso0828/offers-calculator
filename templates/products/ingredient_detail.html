@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+
+{% block page_content %}
+    <a href="{% url 'products:ingredient_list'%}" class="btn btn-outline-info">Povratak na listu  </a>
+    <a href="{% url 'products:ingredient_update' ingredient.pk%}" class="btn btn-outline-info">Update </a>
+    <a href="{% url 'products:ingredient_delete' ingredient.pk%}" class="btn btn-outline-danger">Delete </a>
+
+<div class='mt-3'>
+<h1>{{ingredient.name}}</h1>
+{%if ingredient.description%}
+    <p>Opis {{ingredient.description}} </p>
+    <p>Cijena {{ingredient.total_price | floatformat:2}} </p>
+{%endif%}
+</div>
+
+
+
+
+
+{% endblock page_content %}

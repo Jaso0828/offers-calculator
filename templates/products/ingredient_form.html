@@ -1,0 +1,21 @@
+
+
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_content %}
+<h1>Create new ingredient</h1>
+
+<div class='row'>
+    <div class='col-8'> 
+        <form method="post">
+            {% csrf_token %}
+            {{form | crispy}}
+            <input type="submit" value="Spremi" class=" mt-2 btn btn-outline-success"  /> 
+            <a href="{% url 'products:ingredient_list' %}" class="mt-2 btn btn-outline-danger">
+            Odustani
+    </a>
+        </form>
+    </div>
+</div>
+{% endblock page_content %}
