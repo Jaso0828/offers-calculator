@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from .models import Ingredient
+from ..models import Ingredient
 
 # Create your views here.
 class ProductMenu(TemplateView):
@@ -18,7 +18,7 @@ class IngredientDetailView(DetailView):
     context_object_name = 'ingredient'
 
 
-class IngredietCreateView(CreateView):
+class IngredientCreateView(CreateView):
     model = Ingredient
     fields='__all__'
 

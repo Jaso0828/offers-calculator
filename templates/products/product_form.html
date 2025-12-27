@@ -4,22 +4,22 @@
 {% load crispy_forms_tags %}
 
 {% block page_content %}
-<h1>Update ingredient</h1>
+<h1>Create new product</h1>
 
-<div class='row' >
-    <div class='col-md-6 mr-5'> 
+<div class='row'>
+    <div class='col-8'> 
         <form method="post">
             {% csrf_token %}
             {{form | crispy}}
-            <input type="submit" value="Azuriraj" class=" mt-2 btn btn-outline-success"  /> 
-            <a href="{% url 'products:ingredient_list' %}" class="mt-2 btn btn-outline-danger">
+            <input type="submit" value="Spremi" class=" mt-2 btn btn-outline-success"  /> 
+            <a href="{% url 'products:product_list' %}" class="mt-2 btn btn-outline-danger">
             Odustani
     </a>
         </form>
-        
     </div>
-    <div class="col-md-4 ml-5">
-                <h1 class="h4 mb-4 text-gray-800">Ingredients Description</h1>
+     </div>
+    <div class="col-md-4">
+                <h1 class="h4 mb-4 text-gray-800">Product Description</h1>
                 <p>
                     The Ingredients model in the Django web application details the raw materials or components used in the company's products.
                     It includes the following information:
