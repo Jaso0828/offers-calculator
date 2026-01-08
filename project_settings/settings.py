@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fufsv3=@vi_qz+l=pavzupemo=lqaz+ho)vk*46&vkfwzi(83m'
+SECRET_KEY = 'django-insecure-awj)@j(=g)(jtz%)s3^ckrx-k7kmz#%asq+#!ilv019(&(2*pn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     'account',
     'pages',
     'products',
-    "crispy_forms",
-    "crispy_bootstrap5",
-
 ]
 
 MIDDLEWARE = [
@@ -105,6 +106,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'account.User'
+# Preusmeri kornisnika na ovu adresu nakon uspjesne prijave u sustav
+LOGIN_REDIRECT_URL = 'pages:dashboard'
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -112,12 +118,16 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'hr-hr'
 
 TIME_ZONE = 'Europe/Zagreb'
+TIME_INPUT_FORMATS = [
+    "%H:%M:%S",
+    "%H:%M",
+]
 
 USE_I18N = True
 
 USE_TZ = True
 
-THOUSEND_SEPARATOR = ','
+THOUSEND_SEPARATOR = '.'
 USE_THOUSEND_SEPARATOR = True
 
 
@@ -129,10 +139,6 @@ STATICFILES_DIRS = [
     BASE_DIR/'static',
 ]
 
-LOGIN_URL = 'account:login'
-LOGIN_REDIRECT_URL = 'products:products'
-LOGOUT_REDIRECT_URL = 'account:login'
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

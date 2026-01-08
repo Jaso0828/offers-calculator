@@ -2,23 +2,24 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from ..models import Ingredient
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class ProductMenu(TemplateView):
     template_name = 'products/products.html'
 
 
-class IngredientListView(ListView):
+class IngredientListView(LoginRequiredMixin, ListView):
     model = Ingredient
     context_object_name = 'ingredients'
 
 
-class IngredientDetailView(DetailView):
+class IngredientDetailView(LoginRequiredMixin ,DetailView):
     model = Ingredient
     context_object_name = 'ingredient'
 
 
-class IngredientCreateView(CreateView):
+class IngredientCreateView(LoginRequiredMixin ,CreateView):
     model = Ingredient
     fields='__all__'
 
@@ -26,7 +27,7 @@ class IngredientCreateView(CreateView):
     success_url = reverse_lazy('products:ingredient_list')
 
 
-class IngredientUpdateView(UpdateView):
+class IngredientUpdateView(LoginRequiredMixin,UpdateView):
     model = Ingredient
     fields = '__all__'
 
@@ -34,7 +35,7 @@ class IngredientUpdateView(UpdateView):
     success_url = reverse_lazy('products:ingredient_list')
 
 
-class IngredientDeleteView(DeleteView):
+class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = Ingredient
     success_url = reverse_lazy('products:ingredient_list')
     

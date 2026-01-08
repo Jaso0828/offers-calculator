@@ -1,5 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class DashBoardPage(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/dashboard.html'
 
 
 class HomePage(TemplateView):
@@ -18,6 +23,3 @@ class ContactUs(TemplateView):
 
 
 
-
-# def index(request):
-#     return render(request, 'pages/index.html')
