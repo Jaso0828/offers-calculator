@@ -1,41 +1,52 @@
-from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from ..models import Ingredient
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-# Create your views here.
-class ProductMenu(TemplateView):
-    template_name = 'products/products.html'
+from django.urls import reverse_lazy
+from django.views.generic import (ListView,
+                                  DetailView,
+                                  CreateView,
+                                  UpdateView,
+                                  DeleteView)
+from ..models import Ingredient
 
 
 class IngredientListView(LoginRequiredMixin, ListView):
     model = Ingredient
-    context_object_name = 'ingredients'
+    paginate_by = 10
 
 
-class IngredientDetailView(LoginRequiredMixin ,DetailView):
+class IngredientDetailView(LoginRequiredMixin, DetailView):
     model = Ingredient
-    context_object_name = 'ingredient'
 
 
-class IngredientCreateView(LoginRequiredMixin ,CreateView):
-    model = Ingredient
-    fields='__all__'
-
-    context_object_name = 'ingredient_create'
-    success_url = reverse_lazy('products:ingredient_list')
-
-
-class IngredientUpdateView(LoginRequiredMixin,UpdateView):
+class IngredientCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Ingredient
     fields = '__all__'
+    success_url = reverse_lazy('products:ingredients')
+    success_message = 'Ingredient was created successfully!'
 
-    template_name_suffix = '_update_form'
-    success_url = reverse_lazy('products:ingredient_list')
+    def form_valid(self, form):
+        # Save the form and get the new product object
+        response = super().form_valid(form)
+        self.object.total_price = self.object.calculate_total_price
+        self.object.save()
+        return response
+
+
+class IngredientUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Ingredient
+    fields = '__all__'
+    template_name_suffix = "_update_form"
+    success_url = reverse_lazy('products:ingredients')
+    success_message = 'Ingredient was updated successfully!'
+
+    def form_valid(self, form):
+        # Save the form and get the new product object
+        response = super().form_valid(form)
+        self.object.total_price = self.object.calculate_total_price
+        self.object.save()
+        return response
 
 
 class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = Ingredient
-    success_url = reverse_lazy('products:ingredient_list')
-    
+    success_url = reverse_lazy('products:ingredients')

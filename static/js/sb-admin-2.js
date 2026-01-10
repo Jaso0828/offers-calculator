@@ -15,7 +15,7 @@
     if ($(window).width() < 768) {
       $('.sidebar .collapse').collapse('hide');
     };
-    
+
     // Toggle the side navigation when window is resized below 480px
     if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
       $("body").addClass("sidebar-toggled");
@@ -53,4 +53,11 @@
     e.preventDefault();
   });
 
+  // Set ACTIVE current nav-link
+  // remove any current navbar active classes
+  $(".navbar-nav .nav-item.active").removeClass('active');
+  // add active class to proper navbar item that matches window.location
+  $('.navbar-nav .nav-item a[href="' + location.pathname + '"]').closest('li').addClass('active');
+
 })(jQuery); // End of use strict
+

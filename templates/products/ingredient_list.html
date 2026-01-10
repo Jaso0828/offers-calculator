@@ -1,66 +1,89 @@
-{% extends "base/base.html" %}
-{% load static %}
+{% extends 'base/base.html' %}
 
-{% block page_title %}Ingredients{% endblock page_title %}
+{% block page_title %}INGREDIENTS{% endblock page_title %}
 
-{% block page_content %} 
-<div class='d-flex flex-row align-items-center justify-content-between mb-4'>
-    <div> 
-        <h1 class="h3 mb-0 text-gray-800"> Ingredients list </h>
+{% block content %}
+    <!-- Page Heading -->
+<div class="row">
+    <div class="d-flex flex-row justify-content-between align-items-center col-md-12 ">
+        <div class="col-md-8">
+            <h1 class="h3 mb-4 text-gray-800">Ingredients</h1>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+            <a class="btn btn-success mb-4" href="{% url 'products:ingredients-add' %}" role="button">Add</a>
+        </div>
     </div>
-    <div> 
-        <a class="btn btn-outline-primary" href="{% url 'products:ingredient_create' %}">Add ingredient</a>
+    <div class="col-md-8">
+        <!-- DataTale -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Base Price</th>
+                            <th>Price modificator</th>
+                            <th>Total Price</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for ingredient in ingredient_list %}
+                                <tr>
+                                    <td>
+                                        <a class="fw-bold text-decoration-none " href="{% url 'products:ingredients-detail' pk=ingredient.id %}" role="button">
+                                            {{ ingredient.name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ ingredient.base_price|floatformat:2 }} EUR
+                                    </td>
+                                    <td>
+                                        {{ ingredient.price_mod|floatformat:2 }} EUR
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ ingredient.total_price|floatformat:2 }} EUR</span>
+                                    </td>
+                                    <td style="width: 15%;">
+                                        <a class="btn btn-outline-info" href="{% url 'products:ingredients-update' pk=ingredient.id %}" role="button">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger" href="{% url 'products:ingredients-delete' pk=ingredient.id %}" role="button">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Include pagination -->
+                {% include 'components/pagination.html' with page_obj=page_obj %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h1 class="h4 mb-4 text-gray-800">Ingredients Description</h1>
+        <p>
+            The Ingredients model in the Django web application details the raw materials or components used in the
+            company's products.
+            It includes the following information:
+            <ul>
+                <li><b>Ingredient Name</b> The name of the raw material or component.</li>
+                <li><b>Description</b> A detailed description of the ingredient, including its properties and uses.</li>
+                <li><b>Quantity</b> The amount of the ingredient available or required for a specific product.</li>
+                <li><b>Unit of Measure</b> The unit in which the ingredient is measured (e.g., kilograms, liters, pieces).
+                </li>
+                <li><b>Supplier Information</b> Details about the supplier of the ingredient, including contact information
+                                                and pricing.
+                </li>
+                <li><b>Cost</b> The price of the ingredient, aiding in cost calculations for products.</li>
+            </ul>
+            The Ingredients model ensures accurate tracking and management of all components used in production,
+            facilitating precise cost calculations and inventory management.
+            This supports the creation of detailed and accurate product information and offers.
+        </p>
     </div>
 </div>
-
-<div>
-
-    <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Naziv</th>
-      <th scope="col">Sifra</th>
-      <th scope="col">Cijena</th>
-      <th scope="col">Akcije</th>
-    </tr>
-  </thead>
-  <tbody>
-      
-          {% for ingredient in ingredients%}
-          <tr>
-            <th scope="row">
-                <a href="{% url 'products:ingredient_details' ingredient.pk%}" class="fs-3 text-decoration-none">
-                {{ingredient.name}}
-                </a>
-            </th>
-            <td >{{ingredient.code}} </td>
-            <td>{{ingredient.total_price | floatformat:2 }} EUR</td>
-            <td>
-                <a href="{% url 'products:ingredient_details' ingredient.pk%}" class="fs-3 text-decoration-none">
-                    <i class="bi bi-info-square text-info"></i>
-                </a>
-                <a href="{% url 'products:ingredient_update' ingredient.pk%}" class="fs-3 text-decoration-none">
-                    <i class="bi bi-pencil-square text-success"></i>
-                </a>
-                <a href="{% url 'products:ingredient_delete' ingredient.pk%}" class="fs-3 text-decoration-none">
-                    <i class="bi bi-file-x text-danger"></i>
-                </a>
-            </td>
-          </tr>
-          {%empty%}
-             <tr>
-            <th></th>
-            <td> </td>
-            <td></td>
-            <td>Actions</td>
-          </tr>
-          <p>U bazi nema dodanih sastojaka. <a href="{% url 'products:ingredient_create'%}"> Dodaj sastojak </a> </p>
-          {%endfor%}
-        </tbody>
-    </table>
-</div>
-{% endblock page_content %}
-
-
-
-   
+{% endblock content %}

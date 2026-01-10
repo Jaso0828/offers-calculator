@@ -1,16 +1,11 @@
-from .ingredient_views import (
-    IngredientDetailView,
-    IngredientListView,
-    ProductMenu,
-    IngredientCreateView,
-    IngredientUpdateView,
-    IngredientDeleteView,
-)
+from .ingredient_views import (IngredientListView,
+                               IngredientDetailView,
+                               IngredientCreateView,
+                               IngredientUpdateView,
+                               IngredientDeleteView)
 
-from .product_views import(
-    ProductListView,
-    ProductDetailView,
-    ProductCreateView,
-    ProductUpdateView,
-    ProductDeleteView
-)
+from .product_views import (ProductListView,
+                            ProductDetailView,
+                            ProductCreateView,
+                            ProductUpdateView,
+                            ProductDeleteView)

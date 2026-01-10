@@ -2,7 +2,7 @@
 
 {% block page_title %}INGREDIENT{% endblock page_title %}
 
-{% block page_content %}
+{% block content %}
     <!-- Page Heading -->
 <div class="row">
     <div class="d-flex flex-row justify-content-between align-items-center col-md-12 mb-5 border-bottom border-1">
@@ -10,10 +10,9 @@
             <h1 class="h3 mb-4 text-gray-800">Ingredient Details</h1>
         </div>
         <div class="col-md-4 d-flex justify-content-end">
-            <a class="btn btn-success mb-4 mr-1" href="{% url 'products:ingredient_create' %}" role="button">Add</a>
-            <a class="btn btn-info mb-4 mr-1" href="{% url 'products:ingredient_update' ingredient.id %}" role="button">Update</a>
-            <a class="btn btn-danger mb-4"  href="{% url 'products:ingredient_delete' ingredient.pk %}" role="button">Delete</a>
-            <a class="btn btn-info mb-4 ml-5"  href="{% url 'products:ingredient_list' %}" role="button">Back</a>
+            <a class="btn btn-success mb-4 me-1" href="{% url 'products:ingredients-add' %}" role="button">Add</a>
+            <a class="btn btn-info mb-4 me-1" href="{% url 'products:ingredients-update' pk=ingredient.id %}" role="button">Update</a>
+            <a class="btn btn-info mb-4" href="{% url 'products:ingredients' %}" role="button">Back</a>
         </div>
     </div>
     <div class="col-md-12">
@@ -29,7 +28,7 @@
                     <dd>Base price</dd>
                     <dt class="fs-4 border-bottom border-1 mb-3">{{ ingredient.base_price|floatformat:2 }} EUR</dt>
                     <dd>Price modificator</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ ingredient.price_modificator|floatformat:2 }} EUR</dt>
+                    <dt class="fs-4 border-bottom border-1 mb-3">{{ ingredient.price_mod|floatformat:2 }} EUR</dt>
                     <dd>Total Price</dd>
                     <dt class="fs-4 border-bottom border-1 mb-3">{{ ingredient.total_price|floatformat:2 }} EUR</dt>
                 </dl>
@@ -55,4 +54,4 @@
         </div>
     </div>
 </div>
-{% endblock page_content %}
+{% endblock content %}
