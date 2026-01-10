@@ -1,60 +1,31 @@
-{% extends 'base/base.html' %}
+{% extends "base.html" %}
 
-{% block page_title %}PRODUCT{% endblock page_title %}
+{% block title %}{{ product.name }} - Product Detail{% endblock %}
 
-{% block page_content %}
-    <!-- Page Heading -->
-<div class="row">
-    <div class="d-flex flex-row justify-content-between align-items-center col-md-12 mb-5 border-bottom border-1">
-        <div class="col-md-8 ps-0">
-            <h1 class="h3 mb-4 text-gray-800">Product Details</h1>
+{% block content %}
+<div class="container">
+    <!-- Header Section -->
+    <div class="row my-4 align-items-center">
+        <div class="col-md-6">
+            <h2 class="mb-0">{{ product.name }}</h2>
         </div>
-        <div class="col-md-4 d-flex justify-content-end">
-            <a class="btn btn-success mb-4 mr-1" href="{% url 'products:product_create' %}" role="button">Add</a>
-            <a class="btn btn-info mb-4 mr-1" href="{% url 'products:product_update' product.id %}" role="button">Update</a>
-            <a class="btn btn-danger mb-4"  href="{% url 'products:product_delete' product.pk %}" role="button">Delete</a>
-            <a class="btn btn-info mb-4 ml-5"  href="{% url 'products:product_list' %}" role="button">Back</a>
+        <div class="col-md-6 text-end">
+            <a href="{% url 'product_update' product.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Products</a>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-8">
-                <dl class="pe-3">
-                    <dd>Name</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ product.name }}</dt>
-                    <dd>Code</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ product.code }}</dt>
-                    <dd>Description</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ product.description }}</dt>
-                    <dd>Base price</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ product.base_price|floatformat:2 }} EUR</dt>
-                    <dd>Price modificator</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ product.price_modificator|floatformat:2 }} EUR</dt>
-                    <dd>Total Price</dd>
-                    <dt class="fs-4 border-bottom border-1 mb-3">{{ product.total_price|floatformat:2 }} EUR</dt>
-                    <ul> {% for ingredient in ingredients %}
-                                <li>{{ingredient.name}} </li>
-                        {%empty%}
-                            <li> nema podataka</li>
-                        {%endfor%}
-                    </ul>
-                </dl>
-            </div>
-            <div class="col-md-4">
-                <h1 class="h4 mb-4 text-gray-800">Product details description</h1>
-                <p>
 
-                    <ul>
-                        <li><b>Product Name</b> The name of the raw material or component.</li>
-                        <li><b>Code</b> Product code.</li>
-                        <li><b>Description</b> A detailed description of the ingredient, including its properties and uses.</li>
-                        <li><b>Base price</b> Product base price.</li>
-                        <li><b>Price modificator</b> Price modificator that afects the price.</li>
-                        <li><b>Total price</b> Total price of the product</li>
-                    </ul>
-                </p>
+    <!-- Product Information -->
+    <div class="row my-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Product Information</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock page_content %}
+{% endblock %}
